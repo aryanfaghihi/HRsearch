@@ -66,6 +66,7 @@ var app = express();
 
 ///////////////////////////////////////////////////
 // Google Results Scraper
+/*
 var googleScraper = require('google-search-scraper');
 
 var options = {
@@ -78,6 +79,7 @@ googleScraper.search(options, function (err, url) {
     googleResults.push(url);
     console.log(googleResults);
 });
+*/
 
 // LinkedIn API Scraper /////////////////////////////////////////////
 /*
