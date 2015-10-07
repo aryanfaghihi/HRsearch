@@ -4,31 +4,17 @@ var FB = require('fb');
 
 FB.setAccessToken('CAAOqwgwZAa2sBAFGs8cFfDAgnxlXGCHVMQZC39JPU6AIny9YFhq0u82UuBpCxgJSqFYBu7tgagjnoJ2qQN8b6JZCCgZBlK2ZCirQPbUz4u4p56WNXZAQhwNGiON2KQJFBrwZASAnt7dvN4tUT958VGHL8vpZBZAmIPRgnPSoIZAPRchM9S8g88JsMA');
 
-module.exports.facebookOutput = function() {
+module.exports.facebookOutput = function (req, res) {
+    var searchReq = JSON.stringify(req['query'].query);
+    console.log("FB: " + searchReq);
     FB.api(
         '/search/',
         'GET',
-        {"q": "michael", "type": "user"},
+        {"q": searchReq, "type": "user", "fields": "picture, name, education, bio, work"},
         function (response) {
-            console.log(response);
+            var facebookResults = response.data;
+            res.send(facebookResults);
+            console.log(facebookResults);
         }
-    );
-
-    FB.api(
-        "/689472364489971",
-        function (response) {
-            if (response && !response.error) {
-                console.log(response);
-            }
-        }
-    );
-
-    FB.api(
-        '/689472364489971',
-        'GET',
-        {"fields": "picture"},
-        function (response) {
-            console.log(response)
-        }
-    );
-}
+    )
+};

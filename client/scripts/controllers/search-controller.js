@@ -1,11 +1,18 @@
 app.controller('SearchController', ['$scope', '$resource', function ($scope, $resource) {
-    var searchAPI = $resource('/api/searchResults', {query: ''});
+    var twitterAPI = $resource('/api/twitterSearch', {query: ''});
+    var facebookAPI = $resource('/api/facebookSearch', {query: ''});
 
     $scope.sendSearch = function () {
-        console.log($scope.searchText);
-        searchAPI.query({query:$scope.searchText}, function (data) {
+        twitterAPI.query({query:$scope.searchText}, function (data) {
             console.log(data);
-            $scope.SearchResults = (data);
+            $scope.twitterResults = (data);
+        });
+
+        facebookAPI.query({query:$scope.searchText}, function (data) {
+            console.log(data);
+            $scope.facebookResults = (data);
         })
     }
+
+
 }]);

@@ -27,12 +27,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use('/scripts', express.static(__dirname + '/client/scripts'));
+app.use('/styles', express.static(__dirname + '/client/styles'));
 
 // REST API
-app.get('/api/searchResults', twitterController.twitterOutput);
+app.get('/api/twitterSearch', twitterController.twitterOutput);
+app.get('/api/facebookSearch', facebookController.facebookOutput);
 app.post('/api/searchResults', twitterController.twitterOutput);
 //app.put('/api/searchResultsPost', twitterController.twitterOutput);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
