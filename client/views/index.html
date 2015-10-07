@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is just a test.</title>
+</head>
+<body ng-app="searchApp">
+<div ng-controller="SearchController">
+    <form ng-submit="sendSearch()">
+        <input type="text" ng-model="searchText">
+        <button type="submit">Search</button>
+    </form>
+    <div id="searchResults">
+        <ul>
+            <li ng-repeat="results in SearchResults">
+                {{results.name}}
+                <ul>
+                    <li>
+                        Location: {{results.location}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/scripts/angular.js"></script>
+<script type="text/javascript" src="/scripts/angular-resource.js"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/controllers/search-controller.js"></script>
+</html>
