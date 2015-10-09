@@ -14,7 +14,6 @@ module.exports.facebookOutput = function (req, res) {
         function (response) {
             var facebookResults = response.data;
             res.send(facebookResults);
-            console.log(facebookResults);
         }
     )
 };

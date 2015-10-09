@@ -49,6 +49,21 @@
                     </li>
                 </ul>
             </div>
+
+            <div id="linkedinSearchResults" class="col-sm-4">
+                <h2 ng-if="linkedinResults !== undefined" style="text-align:center;"> LinkedIn </h2>
+                <ul>
+                    <li ng-repeat="linkedin in linkedinResults">
+                        <!--<img ng-src="{{linkedin.picture.data.url}}">-->
+                        {{linkedin.name}}
+                        <ul>
+                            <li>
+                                {{linkedin.title}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

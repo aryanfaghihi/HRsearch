@@ -10,11 +10,9 @@ var client = new Twitter({
 
 module.exports.twitterOutput = function (req, res) {
     var searchReq = JSON.stringify(req['query'].query);
-    console.log("The request is: " + searchReq);
     var params = {q: searchReq, count: '10'};
     client.get('users/search.json', params, function (error, tweets, response) {
         console.log(error);
-        console.log(response.body);
         var twitterResults = JSON.parse(response.body);
         res.send(twitterResults);
     });

@@ -12,6 +12,9 @@ var mongoose = require('mongoose');
 var http = require('http');
 var app = express();
 
+// REMOVE THIS:
+var profileScraper = require('./controllers/linkedinProfileScraper');
+
 //linkedinController.linkedinOutput();
 //facebookController.facebookOutput();
 
@@ -32,8 +35,7 @@ app.use('/styles', express.static(__dirname + '/client/styles'));
 // REST API
 app.get('/api/twitterSearch', twitterController.twitterOutput);
 app.get('/api/facebookSearch', facebookController.facebookOutput);
-app.post('/api/searchResults', twitterController.twitterOutput);
-//app.put('/api/searchResultsPost', twitterController.twitterOutput);
+app.get('/api/linkedinkSearch', linkedinController.linkedinOutput);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
