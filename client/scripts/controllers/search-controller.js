@@ -4,20 +4,23 @@ app.controller('SearchController', ['$scope', '$resource', function ($scope, $re
     var LinkedInAPI = $resource('/api/linkedinkSearch', {query: ''});
 
     $scope.sendSearch = function () {
-        twitterAPI.query({query:$scope.searchText}, function (data) {
-            console.log(data);
-            $scope.twitterResults = (data);
+        $scope.twitterResults = [];
+        $scope.facebookResults = [];
+        twitterAPI.query({query: $scope.searchText}, function (data) {
+            $scope.twitterResults = data;
         });
 
-        facebookAPI.query({query:$scope.searchText}, function (data) {
+        facebookAPI.query({query: $scope.searchText}, function (data) {
             console.log(data);
-            $scope.facebookResults = (data);
+            $scope.facebookResults = data;
         });
 
-        LinkedInAPI.query({query:$scope.searchText}, function (data) {
+        /*
+        LinkedInAPI.query({query: $scope.searchText}, function (data) {
             console.log(data);
             $scope.linkedinResults = (data);
         })
+        */
     }
 
 

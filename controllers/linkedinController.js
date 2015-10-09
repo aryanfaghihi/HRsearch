@@ -14,18 +14,21 @@ module.exports.linkedinOutput = function (req, res) {
     }
     // The last value of the array
     var lastName = splitNames[splitNames.length - 1];
-    var searchUrl = 'https://au.linkedin.com/pub/dir/?first=' + givenName + '&last=' + lastName;
+    var searchUrl = 'http://linkedin.com/pub/dir/?first=Jack&last=Jackson';
     var keywords = ['.vcard h2 strong'];
 
+    console.log('URL is: ' + searchUrl);
     scrape(searchUrl, keywords,
-        function (error, url) {
-            if (error) throw error;
+        function (error, address) {
+            if (error) {
+                console.log(error);
+            }
 
-            if (url) {
-                console.log('Working as expected.');
+            if (address) {
+                console.log('LinkedIn: Address link is valid.');
                 var reqUrls = [];
 
-                url.forEach(function (thisUrl) {
+                address.forEach(function (thisUrl) {
                     var urlHref = thisUrl[0].children[1].attribs.href;
                     reqUrls.push(urlHref);
                 });
@@ -37,16 +40,18 @@ module.exports.linkedinOutput = function (req, res) {
                 var k = 0;
 
                 function getResults() {
+                    console.log('Linked: asking linkedinProfile.');
                     linkedinProfileScraper.output(reqUrls[k], function (callbackResults) {
                         console.log('LinkedIn scraper is working!');
                         linkedinResults.push(callbackResults);
                         console.log(linkedinResults);
-                        if (k < 5) {
-                            getResults();
-                            k++;
+                        k++;
+                        if (k > 5 || k > reqUrls.length) {
+                            res.send(linkedinResults);
+
                         }
                         else {
-                            res.send(linkedinResults);
+                            getResults();
                         }
                     });
                 }

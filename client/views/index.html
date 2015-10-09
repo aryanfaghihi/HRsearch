@@ -4,6 +4,36 @@
     <meta charset="UTF-8">
     <title>This is just a test.</title>
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <style>
+        ul, li {
+            list-style-type: none;
+        }
+
+        h3 {
+            margin: 0;
+            padding-left: 10px;
+        }
+
+        h2 {
+            margin: 30px;
+        }
+        div {
+            transition: 0.5s;
+            margin-bottom: 20px;
+        }
+        img {
+            border-radius: 100px;;
+        }
+
+        .row div div:hover {
+            background-color: #ADD6FF;
+            transition-duration: 0.5s;
+        }
+        #twitterSearchResults, #facebookSearchResults {
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body ng-app="searchApp">
 <div ng-controller="SearchController" class="container" style="margin-top:10px;">
@@ -14,59 +44,60 @@
 
     <h1 ng-if="twitterResults == undefined" style="text-align:center;"> Search for a name to begin with! </h1>
 
-    <div style="margin-top:20px;">
-        <div class="row">
-            <div id="twitterSearchResults" class="col-sm-4">
-                <h2 ng-if="twitterResults !== undefined" style="text-align:center;"> Twitter </h2>
-                <ul>
-                    <li ng-repeat="twResults in twitterResults">
-                        <img ng-src="{{twResults.profile_image_url}}">
-                        {{twResults.name}}
-                        <ul>
-                            <li>
-                                Location: {{twResults.location}}
-                            </li>
-                            <li>
-                                Profile: <a ng-href="https://twitter.com/@{{twResults.screen_name}}" target="_blank"> @{{twResults.screen_name}} </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+    <div class="row">
+        <div id="twitterSearchResults" class="col-sm-4">
+            <h2 ng-if="twitterResults !== undefined" style="text-align:center; color: #55ACEE"> Twitter </h2>
 
-            <div id="facebookSearchResults" class="col-sm-4">
-                <h2 ng-if="facebookResults !== undefined" style="text-align:center;"> Facebook </h2>
-                <ul>
-                    <li ng-repeat="fbResults in facebookResults">
-                        <img ng-src="{{fbResults.picture.data.url}}">
-                        {{fbResults.name}}
-                        <ul>
-                            <li>
-                                <a ng-href="https://www.facebook.com/{{fbResults.id}}" target="_blank"> Link to
-                                    profile </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                <div ng-repeat="twResults in twitterResults">
+                    <img ng-src="{{twResults.profile_image_url}}">
+                    <h3>{{twResults.name}}</h3>
+                    <a ng-href="https://twitter.com/@{{twResults.screen_name}}" target="_blank">
+                        <span> @{{twResults.screen_name}} </span>
+                    </a>
+                    <span style="font-style: italic;"> {{twResults.location}} </span>
+                    <br/>
+                    {{twResults.description}}
+                </div>
 
-            <div id="linkedinSearchResults" class="col-sm-4">
-                <h2 ng-if="linkedinResults !== undefined" style="text-align:center;"> LinkedIn </h2>
-                <ul>
-                    <li ng-repeat="linkedin in linkedinResults">
-                        <!--<img ng-src="{{linkedin.picture.data.url}}">-->
-                        {{linkedin.name}}
-                        <ul>
-                            <li>
-                                {{linkedin.title}}
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        </div>
+
+        <div id="facebookSearchResults" class="col-sm-4">
+            <h2 ng-if="facebookResults !== undefined" style="text-align:center; color: #3B5998"> Facebook </h2>
+
+                <div ng-repeat="fbResults in facebookResults">
+                    <img ng-src="{{fbResults.picture.data.url}}">
+                    <h3>{{fbResults.name}}</h3>
+                    <a ng-href="https://www.facebook.com/{{fbResults.id}}" target="_blank">
+                        <span>Go to profile</span>
+                    </a>
+                </div>
+
+        </div>
+
+        <div id="linkedinSearchResults" class="col-sm-4">
+            <h2 ng-if="linkedinResults !== undefined" style="text-align:center; color: #0077B5"> LinkedIn </h2>
+            <ul>
+                <li ng-repeat="linkedin in linkedinResults">
+                    <!--<img ng-src="{{linkedin.picture.data.url}}">-->
+                    {{linkedin.name}}
+                    <ul>
+                        <li>
+                            {{linkedin.title}}
+                            <ul>
+                                Education:
+                                <li ng-repeat="education in linkedin.education">
+                                    <a href="{{education.url}}">{{education.institution}}</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
+
 </body>
 <script type="text/javascript" src="/scripts/angular.js"></script>
 <script type="text/javascript" src="/scripts/angular-resource.js"></script>
