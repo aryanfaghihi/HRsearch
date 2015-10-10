@@ -45,8 +45,8 @@
     <h1 ng-if="twitterResults == undefined" style="text-align:center;"> Search for a name to begin with! </h1>
 
     <div class="row">
-        <div id="twitterSearchResults" class="col-sm-4">
-            <h2 ng-if="twitterResults !== undefined" style="text-align:center; color: #55ACEE"> Twitter </h2>
+        <div id="twitterSearchResults" class="col-sm-4"  ng-if="twitterResults !== undefined">
+            <h2 style="text-align:center; color: #55ACEE"> Twitter </h2>
 
                 <div ng-repeat="twResults in twitterResults">
                     <img ng-src="{{twResults.profile_image_url}}">
@@ -58,11 +58,12 @@
                     <br/>
                     {{twResults.description}}
                 </div>
+            <a href=""><span ng-click="moreTWResults()"> Load 5 more results. </span></a>
 
         </div>
 
-        <div id="facebookSearchResults" class="col-sm-4">
-            <h2 ng-if="facebookResults !== undefined" style="text-align:center; color: #3B5998"> Facebook </h2>
+        <div id="facebookSearchResults" class="col-sm-4" ng-if="facebookResults !== undefined">
+            <h2 style="text-align:center; color: #3B5998"> Facebook </h2>
 
                 <div ng-repeat="fbResults in facebookResults">
                     <img ng-src="{{fbResults.picture.data.url}}">
@@ -71,6 +72,7 @@
                         <span>Go to profile</span>
                     </a>
                 </div>
+            <a href=""><span ng-click="moreFBResults()"> Load 5 more results. </span></a>
 
         </div>
 

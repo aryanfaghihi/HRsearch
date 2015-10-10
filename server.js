@@ -8,6 +8,7 @@ var cheerio = require('cheerio');
 var linkedinController = require('./controllers/linkedinController');
 var facebookController = require('./controllers/facebookController');
 var twitterController = require('./controllers/twitterController');
+var linkedinControllerOld = require('./controllers/linkedinControllerOld');
 var mongoose = require('mongoose');
 var http = require('http');
 var app = express();
@@ -36,6 +37,7 @@ app.use('/styles', express.static(__dirname + '/client/styles'));
 app.get('/api/twitterSearch', twitterController.twitterOutput);
 app.get('/api/facebookSearch', facebookController.facebookOutput);
 app.get('/api/linkedinkSearch', linkedinController.linkedinOutput);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

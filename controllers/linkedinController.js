@@ -14,7 +14,7 @@ module.exports.linkedinOutput = function (req, res) {
     }
     // The last value of the array
     var lastName = splitNames[splitNames.length - 1];
-    var searchUrl = 'http://linkedin.com/pub/dir/?first=Jack&last=Jackson';
+    var searchUrl = 'http://au.linkedin.com/pub/dir/?first=' + givenName + '&last=' + lastName;
     var keywords = ['.vcard h2 strong'];
 
     console.log('URL is: ' + searchUrl);
@@ -24,13 +24,22 @@ module.exports.linkedinOutput = function (req, res) {
                 console.log(error);
             }
 
-            if (address) {
+            if (address[0] == undefined) {
+                console.log('Address is undefined. Try again.');
+            }
+            else {
+                console.log('First address :' + address[0]);
                 console.log('LinkedIn: Address link is valid.');
                 var reqUrls = [];
+                var magicNumber = 0;
 
                 address.forEach(function (thisUrl) {
                     var urlHref = thisUrl[0].children[1].attribs.href;
                     reqUrls.push(urlHref);
+                    if (magicNumber == 0) {
+                        getResults();
+                        magicNumber++;
+                    }
                 });
 
 
@@ -40,13 +49,14 @@ module.exports.linkedinOutput = function (req, res) {
                 var k = 0;
 
                 function getResults() {
-                    console.log('Linked: asking linkedinProfile.');
+
+                    console.log('LinkedIn: asking linkedinProfile.');
                     linkedinProfileScraper.output(reqUrls[k], function (callbackResults) {
                         console.log('LinkedIn scraper is working!');
                         linkedinResults.push(callbackResults);
                         console.log(linkedinResults);
                         k++;
-                        if (k > 5 || k > reqUrls.length) {
+                        if (k == 5 || k > address.length) {
                             res.send(linkedinResults);
 
                         }
@@ -54,9 +64,8 @@ module.exports.linkedinOutput = function (req, res) {
                             getResults();
                         }
                     });
-                }
 
-                getResults();
+                }
 
 
                 //console.log(linkedinResults);
@@ -72,9 +81,6 @@ module.exports.linkedinOutput = function (req, res) {
                  */
 
             }
-            else {
-                console.log('Try again');
-                res.send('')
-            }
         });
+
 };

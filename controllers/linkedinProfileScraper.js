@@ -13,8 +13,7 @@ module.exports.output = function (url, callback) {
             var returnObject = {
                 education: []
             };
-            if (name[0] && title[0] && locality[0] && education) {
-                console.log('Were in...');
+            if (name && title && locality && education) {
                 returnObject.name = name[0].html();
                 // Short description of a person.
                 returnObject.title = title[0].html();
