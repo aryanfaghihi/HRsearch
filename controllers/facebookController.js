@@ -7,7 +7,7 @@ FB.setAccessToken('CAAOqwgwZAa2sBAJHRP99uvbiqHrt7Lq8PMXjcdWmcnmCTPj3jhNImDqUJgQz
 module.exports.facebookOutput = function (req, res) {
 
     var searchLimit = req['query'].limit;
-    var searchReq = req['query'].query[0];
+    var searchReq = req['query'].query;
 
     console.log("FB: " + searchReq);
 

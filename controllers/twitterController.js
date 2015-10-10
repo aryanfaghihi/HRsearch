@@ -11,7 +11,8 @@ var client = new Twitter({
 module.exports.twitterOutput = function (req, res) {
 
     var searchLimit = req['query'].limit;
-    var searchReq = req['query'].query[0];
+    var searchReq = req['query'].query;
+    console.log('Twitter Search Query: ' + searchReq);
 
     var params = {q: searchReq, count: searchLimit};
     client.get('users/search.json', params, function (error, tweets, response) {
